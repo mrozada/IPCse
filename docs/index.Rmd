@@ -1,6 +1,6 @@
 ---
 title: "INDICE DE PRECIOS AL CONSUMIDOR SIN ESTACIONALIDAD (IPCse)"
-author: "Martin Gonzalez-Rozada <br> Director de la Maestría en Econometría del Departamento de Economía de la [Universidad Torcuato Di Tella](https://www.utdt.edu/). <br>"
+author: "Martin Gonzalez-Rozada. Director de la Maestría en Econometría del Departamento de Economía de la [Universidad Torcuato Di Tella](https://www.utdt.edu/)."
 date: "Diciembre 2022"
 output: rmdformats::downcute
 ---
@@ -177,7 +177,6 @@ cuadro2 %>%
   add_footnote("Nota: los ponderadores de los índices de precios de las divisiones para el cálculo de las incidencias del IPC nacional se construyeron como promedio ponderado de las ponderaciones regionales al no existir ponderadores oficiales. Debido a esto, el resultado de la suma de las incidencias da un valor aproximado a la inflación del nivel general.",notation="symbol")
 
 ```
-
 
 <br>
 
