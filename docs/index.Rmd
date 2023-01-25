@@ -1,6 +1,6 @@
 ---
 title: "INDICE DE PRECIOS AL CONSUMIDOR SIN ESTACIONALIDAD (IPCse)"
-author: "Martin Gonzalez-Rozada"
+author: "Martin Gonzalez-Rozada <br> Director de la Maestría en Econometría del Departamento de Economía de la [Universidad Torcuato Di Tella](https://www.utdt.edu/). <br>"
 date: "Diciembre 2022"
 output: rmdformats::downcute
 ---
