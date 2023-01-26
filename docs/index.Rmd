@@ -1,6 +1,6 @@
 ---
 title: "INDICE DE PRECIOS AL CONSUMIDOR SIN ESTACIONALIDAD (IPCse)"
-author: "Martin Gonzalez-Rozada. Director de la Maestría en Econometría del Departamento de Economía de la [Universidad Torcuato Di Tella](https://www.utdt.edu/)."
+author: "Martin Gonzalez-Rozada. <br> Director de la Maestría en Econometría del Departamento de Economía de la [Universidad Torcuato Di Tella](https://www.utdt.edu/)."
 date: "Diciembre 2022"
 output: rmdformats::downcute
 ---
@@ -38,7 +38,7 @@ yearactual <- 2022
 
 En diciembre los factores estacionales ayudaron a que la medición oficial de la inflación fuera 0.3 puntos porcentuales menor que sin estacionalidad. Durante los últimos 12 meses, el índice aumentó un 94.8 por ciento antes del ajuste estacional (datos oficiales de INDEC).<br>
 
-Durante diciembre, salvo en la región noreste, en las cinco regiones restantes la estacionalidad hizo que la medición oficial fuera de entre 0.1 y 0.4 puntos porcentuales menor al índice sin estacionalidad.En la región noreste la estacionalidad hizo que el dato oficial fuera 0.2 puntos porcentuales más grande que sin estacionalidad (Figura 1).<br>
+Durante diciembre, salvo en la región noreste, en las cinco regiones restantes la estacionalidad hizo que la medición oficial fuera de entre 0.1 y 0.4 puntos porcentuales menor al índice sin estacionalidad. En la región noreste la estacionalidad hizo que el dato oficial fuera 0.2 puntos porcentuales más grande que sin estacionalidad (Figura 1).<br>
 
 **Los índices de precios de bebidas alcohólicas y tabaco y de restaurantes y hoteles fueron, con diferencia, los que más aumentaron en el mes.** En un segundo escalón estuvieron los incrementos en equipamiento y mantenimiento del hogar y educación. Los índices de precios de alimentos y bebidas no alcohólicas; vivienda, agua, electricidad, gas y otros combustibles; comunicación y recreación y cultura aumentaron por debajo del nivel general desestacionalizado (Cuadro 1).<br>
 
