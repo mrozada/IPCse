@@ -189,7 +189,7 @@ cuadro2 %>%
 
 ### Breve explicación del IPCse
 
-El Índice de Precios al Consumidor (IPC) que publica mensualmente el Instituto de Estadística y Censos (INDEC) mide el cambio en los precios de una canasta de bienes y servicios adquiridos por los consumidores urbanos. El índice mide cambios de precios con respecto a una fecha de referencia. La fecha de referencia es diciembre de 2016 donde el IPC vale 100. El INDEC publica índices de precios, para diferentes regiones del país y para el total nacional, que no están ajustados por estacionalidad.  
+El Índice de Precios al Consumidor (IPC) que publica mensualmente el Instituto de Estadística y Censos (INDEC) mide el cambio en los precios de una canasta de bienes y servicios adquiridos por los consumidores del país. El índice mide cambios de precios con respecto a una fecha de referencia. La fecha de referencia es diciembre de 2016 donde el IPC vale 100. El INDEC publica índices de precios, para diferentes regiones del país y para el total nacional, que no están ajustados por estacionalidad.  
 
 Para analizar la evolución de los índices de precios en el corto plazo, los cambios desestacionalizados suelen preferirse ya que eliminan los efectos que normalmente ocurren en la economía, al mismo tiempo y en aproximadamente la misma magnitud cada año. Estos efectos producen movimientos de precios resultantes de fenómenos meteorológicos, ciclos de producción, vacaciones, cambios de estación, etc.  
 
