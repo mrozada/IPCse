@@ -41,14 +41,16 @@ library(ggpmisc)
 
 # C:/Users/fiona/Dropbox/MGR/IPC seasonal adjustment/IPCse
 # C:/Users/fiona/Dropbox/MGR/IPC seasonal adjustment/IPCse 
+# "./IPCse.xlsx"
 
-year_t <- as.numeric(read_excel("C:/Users/fiona/Dropbox/MGR/IPC seasonal adjustment/IPCse/IPCse.xlsx", 
+
+year_t <- as.numeric(read_excel("./IPCse.xlsx", 
     sheet = "Cuadro1", range = "c4", col_names = FALSE))
 
-mes_t <- as.numeric(read_excel("C:/Users/fiona/Dropbox/MGR/IPC seasonal adjustment/IPCse/IPCse.xlsx", 
+mes_t <- as.numeric(read_excel("./IPCse.xlsx", 
     sheet = "Cuadro1", range = "k4", col_names = FALSE))
 
-mes_tm1 <- as.numeric(read_excel("C:/Users/fiona/Dropbox/MGR/IPC seasonal adjustment/IPCse/IPCse.xlsx", 
+mes_tm1 <- as.numeric(read_excel("./IPCse.xlsx", 
     sheet = "Cuadro1", range = "j4", col_names = FALSE))
 
 if(mes_t - mes_tm1 == 1){
@@ -59,7 +61,7 @@ if(mes_t - mes_tm1 == 1){
   year_tm1 <- "ERROR EN EL ANIO DEL MES PREVIO" 
 }
 
-meses <- read_excel("C:/Users/fiona/Dropbox/MGR/IPC seasonal adjustment/IPCse/IPCse.xlsx", 
+meses <- read_excel("./IPCse.xlsx", 
     sheet = "Cuadro1", range = "r15:r26", 
     col_names = FALSE)
 
@@ -68,7 +70,7 @@ text_mes_yoy <-  paste(mes_t_abrev,year_t,"/",mes_t_abrev,year_tm1)
 
 ## Importo el cuadro 1
 
-cuadro1 <- read_excel("C:/Users/fiona/Dropbox/MGR/IPC seasonal adjustment/IPCse/IPCse.xlsx", 
+cuadro1 <- read_excel("./IPCse.xlsx", 
                       sheet = "Cuadro1", range = "E47:L74", 
                       na = "NA")
 colnames1 <- colnames(cuadro1)
@@ -77,24 +79,24 @@ colnames(cuadro1) <- colnames1
 
 ## Importo el cuadro 2
 
-cuadro2 <- read_excel("C:/Users/fiona/Dropbox/MGR/IPC seasonal adjustment/IPCse/IPCse.xlsx", 
+cuadro2 <- read_excel("./IPCse.xlsx", 
                       sheet = "Cuadro2", 
                       range = "D13:K46")
 
 ## Importo los datos de figura 1
 
-figura1 <- read_excel("C:/Users/fiona/Dropbox/MGR/IPC seasonal adjustment/IPCse/IPCse.xlsx", 
+figura1 <- read_excel("./IPCse.xlsx", 
                       sheet = "Figura1", 
                       range = "D47:G61")
 
 ## Importo los datos de figura 2
 
-figura2 <- read_excel("C:/Users/fiona/Dropbox/MGR/IPC seasonal adjustment/IPCse/IPCse.xlsx", 
+figura2 <- read_excel("./IPCse.xlsx", 
                       sheet = "Figura1", 
                       range = "D63:F87")
 
 ## Importo los datos de figura 3
-figura3 <- read_excel("C:/Users/fiona/Dropbox/MGR/IPC seasonal adjustment/IPCse/IPCse.xlsx", 
+figura3 <- read_excel("./IPCse.xlsx", 
                       sheet = "LinePlot", 
                       range = "A1:C2000")
 
