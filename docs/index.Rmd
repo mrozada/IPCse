@@ -1,7 +1,7 @@
 ---
 title: "INDICE DE PRECIOS AL CONSUMIDOR SIN ESTACIONALIDAD (IPCse)"
 author: "Martin Gonzalez-Rozada. <br> Director de la Maestría en Econometría del Departamento de Economía de la [Universidad Torcuato Di Tella](https://www.utdt.edu/)."
-date: "Enero 2023"
+date: "Febrero 2023"
 output: rmdformats::downcute
 ---
 
@@ -29,6 +29,7 @@ library(plotly)
 library(knitr)
 library(readxl)
 library(ggpmisc)
+library("ggh4x")
 
 # Falta automatizar headers cuadro 1
 ```
@@ -39,9 +40,6 @@ library(ggpmisc)
 
 ## Importo fecha: yearactual=anio del informe, mesactual=mes del informe
 
-# C:/Users/fiona/Dropbox/MGR/IPC seasonal adjustment/IPCse
-# C:/Users/fiona/Dropbox/MGR/IPC seasonal adjustment/IPCse 
-# "./IPCse.xlsx"
 
 
 year_t <- as.numeric(read_excel("./IPCse.xlsx", 
@@ -61,12 +59,14 @@ if(mes_t - mes_tm1 == 1){
   year_tm1 <- "ERROR EN EL ANIO DEL MES PREVIO" 
 }
 
+year_tm12 <- year_t - 1
+
 meses <- read_excel("./IPCse.xlsx", 
     sheet = "Cuadro1", range = "r15:r26", 
     col_names = FALSE)
 
 mes_t_abrev <- paste0(str_to_title(substr(meses[mes_t,1],1,3),"."))
-text_mes_yoy <-  paste(mes_t_abrev,year_t,"/",mes_t_abrev,year_tm1)
+text_mes_yoy <-  paste(mes_t_abrev,year_t,"/",mes_t_abrev,year_tm12)
 
 ## Importo el cuadro 1
 
@@ -83,34 +83,55 @@ cuadro2 <- read_excel("./IPCse.xlsx",
                       sheet = "Cuadro2", 
                       range = "D13:K46")
 
-## Importo los datos de figura 1
+## Importo los datos de figura 1: tasa mensual por region
 
 figura1 <- read_excel("./IPCse.xlsx", 
                       sheet = "Figura1", 
                       range = "D47:G61")
 
-## Importo los datos de figura 2
+## Importo los datos de figura 2: tasa mensual por division
 
 figura2 <- read_excel("./IPCse.xlsx", 
                       sheet = "Figura1", 
                       range = "D63:F87")
 
-## Importo los datos de figura 3
+## Importo los datos de figura 3: tasa mensual serie de tiempo
 figura3 <- read_excel("./IPCse.xlsx", 
                       sheet = "LinePlot", 
                       range = "A1:C2000")
-
 library(tsbox)
 figura3long <- figura3 %>%
   na.omit() %>%
   ts_long() %>%
   rename(Serie = id) %>%
   rename(Tasa = value)
-library(tsbox)
+library(tsbox) # la saco porque sino me reutiliza otra funcion que me sirve
+
+## Importo los datos de la figura 4: tasa interanual q1-q5
+figura4 <- read_excel("./IPCse por quintiles.xlsx", 
+                      sheet = "Para R", 
+                      range = "B4:C2000")
+
+
+# Importo datos cuadro 3 
+
+## Importo los datos del cuadro3: tasas q1 a q5
+cuadro3 <- read_excel("./IPCse por quintiles.xlsx", 
+                      sheet = "Para R", 
+                      range = "G4:J9")
+
+
+## Importo los datos del cuadro 4: diferencia incidencias q1-q5
+cuadro4 <- read_excel("./IPCse por quintiles.xlsx", 
+                      sheet = "Para R", 
+                      range = "N4:P17")
+
 ```
 
 
 ```{r datos_figuras, message=FALSE,echo=FALSE}
+
+# Figura: inflacion mensual por regiones 
 fg1 <- figura1 %>%
   mutate_if(is.numeric, ~round(.,2)) %>%
   rename(Variacion2 = Dato) %>%
@@ -127,6 +148,7 @@ fg1t <- fg1 %>%
   ) 
 
 
+# Figura: inflacion mensual por divisiones
 fg2 <- figura2 %>%
   mutate_if(is.numeric, ~round(.,1)) %>%
   rename(Variacion = Dato)
@@ -134,6 +156,7 @@ fg2 <- figura2 %>%
 fg2$Division <- fct_relevel(fg2$Division,c("Bienes y servicios varios", "Restaurantes y hoteles", "Educación", "Recreación y cultura", "Comunicación", "Transporte", "Salud", "Equipamiento y mantenimiento del hogar", "Vivienda, agua, electricidad, gas y otros combustibles", "Prendas de vestir y calzado", "Bebidas alcohólicas y tabaco", "Alimentos y bebidas no alcohólicas"))
 
 
+# Figura: inflacion mensual serie de tiempo 
 fg3 <- figura3long %>%
   mutate_if(is.numeric, ~round(.,2)) 
   
@@ -142,6 +165,18 @@ fg3t <- figura3 %>%
   na.omit() %>%
   tail(n=1) %>%
   mutate_if(is.numeric, ~sprintf("%.1f",round(.,1)))
+
+
+# Figura 4: diferencia de inflacion interanual entre quintil 1 y quintil 5
+colnames(figura4) <- c("Fecha","Serie")
+figura4 <- figura4 %>%
+  na.omit() %>%
+  mutate(Serie=Serie*100) %>%
+  mutate_if(is.numeric, ~round(.,2))
+
+# Cuadro 3: Inflacion por quintil
+colnames(cuadro3[,1]) <- " " 
+
 ```
 
 
@@ -153,22 +188,25 @@ text1 <- if(sign(dif_indec_ipcse)==-1){(paste(abs(dif_indec_ipcse),"puntos porce
 
 ## RESULTADOS
 
+
+### Inflación sin estacionalidad
+
 **El Índice de Precios al Consumidor nacional sin estacionalidad (IPCse) aumentó un `r cuadro1[2,7]` por ciento en `r meses[mes_t,1]`, luego de haber aumentado un `r cuadro1[2,6]` por ciento en `r meses[mes_tm1,1]`.** <br>
 
 En `r meses[mes_t,1]` los factores estacionales ayudaron a que la medición oficial de la inflación fuera `r text1` que sin estacionalidad. Durante los últimos 12 meses, el índice aumentó un `r cuadro1[2,8]` por ciento antes del ajuste estacional (datos oficiales de INDEC). <br>
 
 
-Durante `r meses[mes_t,1]`, en las seis regiones, la estacionalidad hizo que la medición oficial fuera de entre 0.2 y 0.6 puntos porcentuales menor al índice sin estacionalidad. La región donde la estacionalidad tuvo un mayor impacto fue la patagónica donde la inflación sin estacionalidad fue 0.6 puntos porcentuales mayor a la medida por INDEC (Figura 1).<br>
+**Durante `r meses[mes_t,1]`, en cinco de las seis regiones, la estacionalidad hizo que la medición oficial fuera de entre 0.1 y 0.4 puntos porcentuales menor al índice sin estacionalidad.** En la región Cuyo la estacionalidad no tuvo impacto registrándose una inflación de 6.7 por ciento tanto en los datos oficiales como en el IPCse. La región donde la estacionalidad tuvo un mayor impacto fue GBA donde la inflación sin estacionalidad fue 0.4 puntos porcentuales mayor a la medida por INDEC (Figura 1).<br>
 
-**Los índices de precios de recreación y cultura y vivienda, agua, electricidad, gas y otros combustibles fueron, con diferencia, los que más aumentaron en el mes.** En un segundo escalón estuvieron los incrementos en bebidas alcohólicas y tabaco y comunicación. Los índices de precios de educación; salud y prendas de vestir y calzado  aumentaron por debajo del nivel general desestacionalizado (Cuadro 1).<br>
+**Los índices de precios de alimentos y bebidas no alcohólicas, comunicación y restaurantes y hoteles fueron, con diferencia, los que más aumentaron en el mes.** En un segundo escalón estuvieron los incrementos en recreación y cultura y bienes y servicios varios. Los índices de precios de educación; transporte y vivienda, agua, electricidad, gas y otros combustibles  aumentaron por debajo del nivel general desestacionalizado (Cuadro 1).<br>
 
-**El índice de precios de educación y el de prendas de vestir y calzado son las dos divisiones que menos aumentaron en la medición sin estacionalidad.** Al tener factores estacionales más pequeños en enero que en diciembre el índice oficial de ambas divisiones es aún menor que sin estacionalidad (ver Figura 2). Estas dos divisiones son las que explican casi toda la diferencia entre la medición sin estacionalidad y la medición oficial durante `r meses[mes_t,1]`.<br>
+**El índice de precios de educación y el de transporte son las dos divisiones que menos aumentaron en la medición sin estacionalidad.** Como el factor de estacionalidad de educación fue más pequeño en febrero que en enero el índice oficial del INDEC dió aún más bajo que sin estacionalidad (ver Figura 2). Educación junto con prendas de vestir y calzado y recreación y cultura son las divisiones que explican casi toda la diferencia entre la medición sin estacionalidad y la medición oficial durante `r meses[mes_t,1]`.<br>
 
-**La contribución más importante al dato del nivel general del IPCse de `r meses[mes_t,1]` la hizo el índice de precios de la división alimentos y bebidas no alcohólicas explicando casi el 30 por ciento del `r cuadro1[2,7]` por ciento de inflación.** Transporte con 0.69 y prendas de vestir y calzado con 0.66 puntos porcentuales fueron las otras divisiones con incidencias importantes en el aumento del nivel general de precios sin estacionalidad. El índice de precios de la división alimentos y bebidas no alcohólicas contribuyó a explicar más del 40 por ciento de la inflación sin estacionalidad en las regiones noreste y noroeste. Además en la región pampeana y en cuyo la división de alimentos y bebidas no alcohólicas explicó alrededor del 32 por ciento del incremento en el IPCse regional (Cuadro 2).<br>
+**La contribución más importante al dato del nivel general del IPCse de `r meses[mes_t,1]` la hizo el índice de precios de la división alimentos y bebidas no alcohólicas explicando casi el 38 por ciento del `r cuadro1[2,7]` por ciento de inflación.** Prendas de vestir y calzado y restaurantes y hoteles con 0.7 puntos porcentuales fueron las otras divisiones con incidencias importantes en el aumento del nivel general de precios sin estacionalidad. El índice de precios de la división alimentos y bebidas no alcohólicas contribuyó a explicar el 44 y 48 por ciento de la inflación sin estacionalidad en las regiones noreste y noroeste, respectivamente. Además en la región pampeana y en cuyo la división de alimentos y bebidas no alcohólicas explicó alrededor del 40 por ciento del incremento en el IPCse regional (Cuadro 2).<br>
 
-**En la comparación interanual, `r meses[mes_t,1]` de `r year_t` contra `r meses[mes_t,1]` de `r year_t - 1` antes del ajuste estacional, más del 50 por ciento del aumento de 98.8 por ciento está explicado por los índices de precios de tres de las divisiones de la canasta: alimentos y bebidas no alcohólicas, prendas de vestir y calzado y transporte.**  Restaurantes y hoteles con una contribución de casi 10 puntos porcentuales y salud con una incidencia interanual de 8.2 puntos porcentuales son las divisiones que le siguen en explicación del aumento interanual del nivel general de precios (Cuadro 2).<br> 
+**En la comparación interanual, `r meses[mes_t,1]` de `r year_t` contra `r meses[mes_t,1]` de `r year_t - 1` antes del ajuste estacional, más del 60 por ciento del aumento de 102.5 por ciento está explicado por los índices de precios de cuatro de las divisiones de la canasta: alimentos y bebidas no alcohólicas, prendas de vestir y calzado, transporte y restaurantes y hoteles.**  Salud con una incidencia interanual de 8.4 puntos porcentuales es la división que le sigue en explicación del aumento interanual del nivel general de precios nacional (Cuadro 2).<br> 
 
-**En `r meses[mes_t,1]`, la inflación subyacente, definida como el cambio porcentual en el nivel general del IPCse menos el efecto de los índices de precios de las divisiones de la canasta que incluyen bienes y servicios regulados o con alto componente impositivo, fue de 6.5 por ciento después de haber aumentado un 5.4 por ciento en diciembre.**  El valor de `r meses[mes_t,1]` fue impulsado por las regiones noreste y noroeste. En términos interanuales la inflación subyacente en las regiones del GBA y patagonia ya superó el 100 por ciento en `r meses[mes_t,1]` (Cuadro 1).
+**En `r meses[mes_t,1]`, la inflación subyacente, definida como el cambio porcentual en el nivel general del IPCse menos el efecto de los índices de precios de las divisiones de la canasta que incluyen bienes y servicios regulados o con alto componente impositivo, fue de 7.6 por ciento después de haber aumentado un 6.5 por ciento en enero.**  El valor de `r meses[mes_t,1]` fue impulsado por las regiones de GBA, noreste y noroeste. En términos interanuales la inflación subyacente en las seis regiones ya superó el 100 por ciento en `r meses[mes_t,1]` (Cuadro 1).
 
 
 <br>
@@ -182,7 +220,7 @@ yearscuadro1 <- c("",as.character(cuadro1[1,2:7]),"2022/2021")
 
 colnames(cuadro1)[8] <- "  "
 
-# Tengo que automatizar la barrita que dice 
+# Tengo que automatizar la barrita de la linea 208 
 
 cuadro1 %>%   
   slice(-1) %>%
@@ -193,7 +231,7 @@ cuadro1 %>%
   group_rows("Inflación subyacente", 20,26) %>%
   column_spec(column=1:8, extra_css = "vertical- align:middle;") %>%
   kable_styling() %>%
-  add_header_above(c("Año"=1, "2022"=5,"2023"=1, setNames(1,text_mes_yoy))) %>%
+  add_header_above(c("Año"=1, "2022"=4,"2023"=2, setNames(1,text_mes_yoy))) %>%
   add_header_above(c("IPCse" = 1, "Variación mensual" = 6, "Variación interanual" = 1)) %>%
   add_footnote("Nota: existe una diferencia económicamente no significativa (menos de medio punto porcentual) entre las variaciones interanuales del IPCse y del IPC calculado por INDEC. Debido a esto la última columna del cuadro muestra las variaciones interanuales del IPC oficial.", notation = "symbol")
 ```
@@ -230,9 +268,10 @@ g2d <- ggplot(fg2, aes(x=Division, y=Variacion, fill=Serie)) +
   scale_fill_manual(values=c("#111C7F","#9F2042")) +
   labs(y = "Variación porcentual",
        x = "") +
+  theme_bw() +
   coord_flip() 
 
-ggplotly(g2d, height = 800)
+ggplotly(g2d)
 ```
 
 <br>
@@ -269,9 +308,84 @@ cuadro2 %>%
   kable_styling() %>%
   group_rows("Incidencia mensual (IPCse)", 1,14) %>%
   group_rows("Incidencia interanual (INDEC)", 15,27) %>%
-  add_footnote("Nota: los ponderadores de los índices de precios de las divisiones para el cálculo de las incidencias del IPC nacional se construyeron como promedio ponderado de las ponderaciones regionales al no existir ponderadores oficiales. Debido a esto, el resultado de la suma de las incidencias da un valor aproximado a la inflación del nivel general.",notation="symbol")
+  add_footnote("Nota: los ponderadores de los índices de precios de las divisiones para el cálculo de las incidencias del IPC nacional se construyeron como promedio ponderado de las ponderaciones regionales al no existir ponderadores oficiales. Debido a esto, el resultado de la suma de las incidencias da un valor aproximado a la inflación del nivel general.",notation="symbol")
 
 ```
+
+
+### Inflación para hogares de mayores y menores ingresos
+
+En `r meses[mes_t,1]`, la tasa de inflación mensual que enfrentaron los hogares de menores ingresos fue de `r sprintf("%.1f",cuadro3[1,3])` por ciento mientras que para los hogares del 20 por ciento de mayores ingresos la inflación fue de `r sprintf("%.1f",cuadro3[5,3])` por ciento. Comparando contra el mismo mes del año anterior fue de `r sprintf("%.1f",cuadro3[1,4])` por ciento para el 20 por ciento con menores ingresos y de `r sprintf("%.1f",cuadro3[5,4])` por ciento para el quintil de mayores ingresos.
+
+```{r cuadro3, echo=FALSE, message=FALSE}
+cuadro3 %>%   
+  kable(caption="**Cuadro 3. Inflación por quintil de ingresos**", digits=1, col.names = NULL,align = c("r","c","c","c")) %>%
+  add_header_above(c(".", "Quintil", "Mensual", "Interanual")) %>%
+  kable_styling() 
+```
+
+La Figura 3 muestra la diferencia entre la inflación anual experimentada por el 20 por ciento de la población de menores ingresos y el 20 por ciento de mayores ingresos (medido por el ingreso familiar per capita del hogar). **Durante la mayor parte del período que va desde diciembre de 2017 hasta `r meses[mes_t,1]` de 2023, los precios de la división de alimentos y bebidas no alcohólicas, donde la proporción del gasto es mayor para los hogares de menores ingresos aumentaron más rápido que los precios de las divisiones de transporte, educación, recreación y cultura, y restaurantes y hoteles donde la proporción de gasto total es mayor para los hogares de mayores ingresos.** Eso explica que la inflación interanual que enfrentaron los hogares de menores ingresos haya sido mayor que la que enfrentaron los hogares de mayores ingresos. En los últimos 12 meses, desde marzo de 2022, hubo un solo mes, julio de 2022, donde los precios de las divisiones en las que tienen mayor proporción del gasto los hogares de mayores ingresos crecieron a ritmo mayor que los precios de los bienes y servicios de las divisiones donde los hogares de menores ingresos gastan una mayor proporción.
+
+
+<span style="color:#777;font-size:13    .0pt;"> **Figura 3. Diferencia entre la tasa de inflación interanual entre el 20% con menores ingreso y el 20% con mayores ingresos**</span>
+
+
+```{r figura_infla_intearnual_q1q5, echo=FALSE, message=FALSE}
+
+# editar el tooltip 
+
+tooltip_g4 <- paste0("La diferencia entre la tasa de inflación interanual entre el 20% con menores ingresos y el 20% con mayores ingresos es de ")
+
+
+titulog4 <- paste0("Última obsercación: ", meses[mes_t,1], " ", year_t, ".\nLa diferencia en la inflación anual entre los quintiles 1 y 5 fue de ", sprintf("%.1f",figura4$Serie[which.max(figura4$Fecha)]), " puntos porcentuales.")
+
+g4 <- ggplot(data=figura4, aes(x=Fecha,y=Serie)) +
+  ggh4x::stat_difference(aes(ymin = 0, ymax = Serie)) +
+  geom_line(aes(y = Serie)) +
+  labs(fill = "Diferencia", y="Puntos porcentuales", x=" ", title=titulog4) +
+  scale_fill_manual(values=c("#9F2042", "#adcc78"), name="Diferencia") +
+  theme_bw()
+g4
+#ggplotly(g4)
+```
+
+
+La Figura 4 muestra las diferencias entre las contribuciones a la tasa de inflación interanual de `r meses[mes_t,1]` del 20 por ciento de los hogares de menores y mayores ingresos.  **La división de alimentos y bebidas no alcohólicas contribuyó a incrementar más la inflación para los hogares de menores ingresos en comparación con los hogares de mayores ingresos.** En particular esta división explicó más de 20 puntos porcentuales de diferencia. En comparación, transporte, restaurantes y hoteles y salud, fueron las divisiones que contribuyeron para aumentar más la tasa de inflación que enfrentó el grupo de hogares de mayores ingresos en comparación con los hogares de menores ingresos. Las divisiones de transporte y restaurantes y hoteles contribuyeron a reducir la brecha en la inflación enfrentada por los hogares de menores y mayores ingresos en alrededor de 10 puntos porcentuales.
+
+
+<br> 
+
+<span style="color:#777;font-size:13    .0pt;"> **Figura 4. Diferencia de la incidencia de cada división entre el 20% con menores ingreso y el 20% con mayores ingresos**</span>
+
+
+```{r cuadro4, echo=FALSE, message=FALSE, include=FALSE}
+cuadro4 %>%   
+  select(1:2) %>%
+  relocate(where(is.numeric), .after = where(is.character)) %>% 
+  slice(13,1:12) %>%
+  kable(caption="**Cuadro 4: Diferencia de la incidencia de la inflación interanual por quintil de ingresos**", digits=2) %>%
+  row_spec(1,bold=TRUE) %>% 
+  kable_styling() 
+```
+
+
+
+```{r figura_infla_q1q5_difinci , echo=FALSE, message=FALSE}
+
+fg4 <- cuadro4 %>%
+  mutate(Incidencia=fct_reorder(División,Orden)) %>%
+  mutate_if(is.numeric, ~round(.,2)) 
+
+g5 <- ggplot(fg4, aes(x=Incidencia, y=`Diferencia de incidencias`)) +
+  geom_bar(stat="identity", width = 0.5,fill=c("#88b3f7")) +
+  labs(y = "Variación porcentual",
+       x = "") +
+  theme_bw() +
+  coord_flip() 
+ggplotly(g5)
+
+```
+
 
 <br>
 
