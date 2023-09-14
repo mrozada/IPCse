@@ -205,7 +205,7 @@ fgqy <- figuraq1aq5year %>%
 
 ```{r parrafos,message=FALSE,echo=FALSE}
 dif_indec_ipcse <- round(as.numeric(fg3t[2])-as.numeric(fg3t[3]),1)
-text1 <- if(sign(dif_indec_ipcse)==-1){(paste(abs(dif_indec_ipcse),"puntos porcentuales menor ",sep=" "))} else if(sign(dif_indec_ipcse)==1){(paste(abs(dif_indec_ipcse),"punto porcentual mayor",sep=" "))} else {("igual ")}
+text1 <- if(sign(dif_indec_ipcse)==-1){(paste(abs(dif_indec_ipcse),"puntos porcentuales menor ",sep=" "))} else if(sign(dif_indec_ipcse)==1){(paste(abs(dif_indec_ipcse),"puntos porcentuales mayor",sep=" "))} else {("igual ")}
 ```  
   
  
