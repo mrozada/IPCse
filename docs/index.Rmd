@@ -457,7 +457,7 @@ La Figura 4 muestra las diferencias entre las contribuciones a la tasa de inflac
 cuadro1[9:20,]
 ```
 
-El Cuadro 4 muestra el impacto diferencial de la inflación por quintiles de ingreso per cápita familiar para los datos oficiales. **Los hogares de menores ingresos, quintil 1, enfrentaron en marzo una inflación de `r sprintf("%.2f",cuadro4[1,3])` por ciento comparada con una inflación de `r sprintf("%.2f",cuadro4[5,3])` por ciento para los hogares del 20 por ciento de mayores ingresos** (ver Figura 5). Esta diferencia se debe al aumento de los precios de las divisiones de Transporte, Restaurantes y hoteles y Salud, que impactan en mayor medida en los hogares de mayores ingresos (quintil 5), combinado con menores aumentos de los índices de precios de las divisiones de Alimentos y bebidas no alcohólicas y Prendas de vestir y calzado, que impactan más en los hogares de menores ingresos (quintil 5).
+El Cuadro 4 muestra el impacto diferencial de la inflación por quintiles de ingreso per cápita familiar para los datos oficiales. **Los hogares de menores ingresos, quintil 1, enfrentaron en `r meses[mes_t,1]` una inflación de `r sprintf("%.2f",cuadro4[1,3])` por ciento comparada con una inflación de `r sprintf("%.2f",cuadro4[5,3])` por ciento para los hogares del 20 por ciento de mayores ingresos** (ver Figura 5). Esta diferencia se debe al aumento de los precios de las divisiones de Transporte, Restaurantes y hoteles y Salud, que impactan en mayor medida en los hogares de mayores ingresos (quintil 5), combinado con menores aumentos de los índices de precios de las divisiones de Alimentos y bebidas no alcohólicas y Prendas de vestir y calzado, que impactan más en los hogares de menores ingresos (quintil 5).
 
 <br>
 
