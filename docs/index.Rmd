@@ -1,7 +1,7 @@
 ---
 title: "INDICE DE PRECIOS AL CONSUMIDOR SIN ESTACIONALIDAD (IPCse)"
 author: "Martin Gonzalez-Rozada. <br> Director de la Maestría en Econometría del Departamento de Economía de la [Universidad Torcuato Di Tella](https://www.utdt.edu/)."
-date: "Diciembre 2024"
+date: "Enero 2024"
 output: rmdformats::downcute
 ---
 
@@ -225,31 +225,31 @@ text1 <- if(sign(dif_indec_ipcse)==-1){(paste(abs(dif_indec_ipcse),"puntos porce
 
 **El Índice de Precios al Consumidor nacional sin estacionalidad (IPCse) aumentó un `r cuadro1[2,7]` por ciento en `r meses[mes_t,1]`, luego de haber aumentado un `r cuadro1[2,6]` por ciento en `r meses[mes_tm1,1]`.** <br>
 
-En `r meses[mes_t,1]` los factores estacionales contribuyeron a que la medición oficial de la inflación fuera `r text1` que sin estacionalidad, `r fg3t[1,2]` por ciento versus `r fg3t[1,3]` por ciento. Esta diferencia de `r abs(dif_indec_ipcse)` puntos porcentuales en la inflación con estacionalidad de `r meses[mes_t,1]` se explica fundamentalmente por el comportamiento de las divisiones de Educación, Prendas de vestir y calzado y Equipamiento y mantenimiento del hogar,  donde los factores estacionales hicieron que la medición oficial fuera 4.2, 2.9 y 0.8 puntos porcentuales más baja, respectivamente (Figura 2). Durante los últimos 12 meses, el índice aumentó un `r cuadro1[2,8]` por ciento antes del ajuste estacional (datos oficiales de INDEC). <br>
+En `r meses[mes_t,1]` los factores estacionales contribuyeron a que la medición oficial de la inflación fuera `r text1` que sin estacionalidad, `r fg3t[1,2]` por ciento versus `r fg3t[1,3]` por ciento. Esta diferencia de `r abs(dif_indec_ipcse)` puntos porcentuales en la inflación con estacionalidad de `r meses[mes_t,1]` se explica fundamentalmente por el comportamiento de las divisiones de Comunicación, Alimentos y bebidas no alcohólicas y Bebidas alcohólicas y tabaco,  donde los factores estacionales hicieron que la medición oficial fuera 4.5, 1.6 y 1.4 puntos porcentuales más alta, respectivamente (Figura 2). Durante los últimos 12 meses, el índice aumentó un `r cuadro1[2,8]` por ciento antes del ajuste estacional (datos oficiales de INDEC). <br>
 
 ```{r, include=FALSE}
 fg2_wide %>%  arrange(desc(Diferencia))
 ```
 
-**Durante `r meses[mes_t,1]`, todas las regiones registraron una tasa de inflación oficial menor a la medición sin estacionalidad, con diferencias entre 0.3 y 0.6 puntos porcentuales.** La mayor diferencia se dio en la región GBA, donde la tasa de inflación oficial fue 0.6 puntos porcentuales más baja que la medición sin estacionalidad, seguida de las regiones Patagonia y Noroeste. La región Noreste fue la única que registró una medición oficial de inflación mayor a la medición sin estacionalidad (Figura 1).<br>
+**Durante `r meses[mes_t,1]`, todas las regiones registraron una tasa de inflación oficial mayor a la medición sin estacionalidad, con diferencias entre 0.4 y 0.6 puntos porcentuales.** La mayor diferencia se dio en la región Cuyo, donde la tasa de inflación oficial fue 0.6 puntos porcentuales más alta que la medición sin estacionalidad, seguida de las regiones Pampeana y Noroeste. (Figura 1).<br>
 
 ```{r, include=FALSE}
 fg1t_wide %>%  arrange(desc(Diferencia))
 ```
 
-**El índice de precios de Educación fue el que más aumentó en el mes, con un incremento de `r cuadro1[18,7]` por ciento. En segundo lugar en los aumentos está el índice de precios sin estacionalidad de Vivienda, agua, electricidad, gas y otros combustibles, cuyo incremento fue de `r cuadro1[12,7]` por ciento.** En un segundo escalón, todos con aumentos de 4.5 por ciento, se ubican los aumentos en los índices de precios de Prendas de vestir y calzado, Comunicación y Restaurantes y hoteles.  (Cuadro 1).<br>
+**El índice de precios de Educación fue el que más aumentó en el mes al ajustar por estacionalidad, con un incremento de `r cuadro1[18,7]` por ciento. En segundo lugar en los aumentos está el índice de precios sin estacionalidad de Restaurantes y hoteles, cuyo incremento fue de `r cuadro1[19,7]` por ciento, y en tercer lugar se ubica el índice de Vivienda, agua , electricidad, gas y otro combustibles, con una suba de `r cuadro1[12,7]`** En un segundo escalón, con subas en el orden de 2.5 por ciento, se ubican los aumentos en los índices de precios de Recreación y cultura, Bienes y servicios varios y Salud.  (Cuadro 1).<br>
 
 ```{r, include=FALSE}
 fg2_wide %>%  arrange(desc(IPCse))
 ```
 
-**El índice de precios de Equipamiento y mantenimiento del hogar fue el que menos aumentó en la medición sin estacionalidad, con una suba de `r cuadro1[13,7]` por ciento, seguido del índice de precios de Salud, cuyo aumento en la medición sin estacionalidad fue de `r cuadro1[14,7]` por ciento** (Figura 2). <br>
+**El índice de precios de Alimentos y bebidas no alcohólicas fue el que menos aumentó en la medición sin estacionalidad, con una suba de `r cuadro1[9,7]` por ciento, seguido del índice de precios de Prendas de vestir y calzado, cuyo aumento en la medición sin estacionalidad fue de `r cuadro1[11,7]` por ciento**. También se registró una variación negativa de precios en el índice de precios de Comunicación, cuya tasa de variación fue de  (Figura 2) `r cuadro1[16,7]` por ciento. <br>
 
 ```{r cuadrito_incidencias_mensual, include=FALSE}
 arrange(cuadro2[5:16,],desc(Nacional))
 ```
 
-**La contribución más importante al dato del nivel general del IPCse de `r meses[mes_t,1]` la hizo el índice de precios de la división Alimentos y bebidas no alcohólicas explicando alrededor de `r round(100*cuadro2[5,8]/cuadro2[2,8],1)` por ciento del `r cuadro1[2,7]` por ciento de inflación.** La incidencia de este índice fue alta en varias las regiones del país, explicando entre 16.0 por ciento en GBA y hasta 31.8 en la región Noroeste. Esta división fue la que más contribuyó a la tasa de inflación sin estacionalidad en casi todas las regiones, a excepción de GBA, donde Restaurantes y hoteles incidió 16.4 por ciento, y de la región Noreste, donde la incidencia de Transporte fue de 29.1 por ciento. Durante `r meses[mes_t,1]`, la segunda contribución más grande a la tasa de inflación mensual fue la del índice de Vivienda, agua, electricidad, gas y otros combustibles, explicando un 15.4 por ciento de la tasa de inflación mensual. Esta división no fue la de mayor incidencia en ninguna región, pero su incidencia estuvo entre 15 y 17 por ciento en casi todas las regiones a excepción de Cuyo y Noreste donde rondó el 10 por ciento  (Cuadro 2). La división Restaurantes y hoteles fue la tercera división con mayor incidencia, habiendo explicado 14.9 por ciento de la inflación mensual sin estacionalidad, con valores dispares entre regiones, explicando un 16.4 por ciento de la tasa de inflación mensual sin estacionalidad en GBA pero tan solo un 6.6 por ciento en la región Noreste . Estas tres divisiones explican la mitad de la inflación del mes de `r meses[mes_t,1]`. <br>
+**La contribución más importante al dato del nivel general del IPCse de `r meses[mes_t,1]` la hizo el índice de precios de la división Restaurantes y hoteles explicando alrededor de `r round(100*cuadro2[15,8]/cuadro2[2,8],1)` por ciento del `r cuadro1[2,7]` por ciento de inflación.** La incidencia de este índice fue alta en varias las regiones del país, explicando entre 12.0 por ciento en Cuyo y hasta 38.5 en GBA. Esta división fue la que más contribuyó a la tasa de inflación sin estacionalidad únicamente en GBA, mientras que en el resto de las regiones la división con mayor incidencia fue Vivienda, agua, electricidad, gas y otro combustibles. Esta última división fue, durante `r meses[mes_t,1]`, la segunda contribución más grande a la tasa de inflación mensual, explicando un 19.8 por ciento de la tasa de inflación mensual. Estas dos divisiones explican prácticamente la mitad de la inflación del mes de `r meses[mes_t,1]`, seguidas del índice de precios de Salud. Durante este mes, el índice de precios de Comunicación registró una incidencia negativa. (Cuadro 2). <br>
 
 ```{r cuadrito_incidencias_mensual2, include=FALSE}
 cuadro2[19,]
@@ -265,13 +265,13 @@ arrange(cuadro2[22:33,c(1,8)],desc(Nacional)) %>%
   mutate(PorcentajeAcum = cumsum(Porcentaje))
 ```
 
-**En la comparación interanual, `r meses[mes_t,1]` de `r year_t` contra `r meses[mes_t,1]` de `r year_t - 1`, antes del ajuste estacional, el 50 por ciento del aumento de `r cuadro1[2,8]` por ciento está explicado por los índices de precios de tres de las divisiones de la canasta: Alimentos y bebidas no alcohólicas, Transporte, y Vivienda, agua, electricidad, gas y otros combustibles.** Restaurantes y Hoteles, con una incidencia interanual de `r sprintf("%.1f", cuadro2[32,8])` puntos porcentuales, y Salud, con `r sprintf("%.1f",cuadro2[27,8])` puntos porcentuales, son las divisiones que le siguen en la explicación del aumento interanual del nivel general de precios (Cuadro 2).<br>
+**En la comparación interanual, `r meses[mes_t,1]` de `r year_t` contra `r meses[mes_t,1]` de `r year_t - 1`, antes del ajuste estacional, el 50 por ciento del aumento de `r cuadro1[2,8]` por ciento está explicado por los índices de precios de tres de las divisiones de la canasta: Alimentos y bebidas no alcohólicas, Vivienda, agua, electricidad, gas y otros combustibles y Transporte.** Restaurantes y Hoteles, con una incidencia interanual de `r sprintf("%.1f", cuadro2[32,8])` puntos porcentuales, y Salud, con `r sprintf("%.1f",cuadro2[27,8])` puntos porcentuales, son las divisiones que le siguen en la explicación del aumento interanual del nivel general de precios (Cuadro 2).<br>
 
 ```{r cuadrito_subyacente, include=FALSE}
 cuadro1[21:27,]
 ```
 
-**En `r meses[mes_t,1]`, la inflación subyacente, definida como el cambio porcentual en el nivel general del IPCse menos el efecto de los índices de precios de las divisiones de la canasta que incluyen bienes y servicios regulados o con alto componente impositivo, fue de `r cuadro1[21,7]` por ciento después de haber aumentado un `r cuadro1[21,6]` por ciento en `r meses_anterior[mes_t,1]`.** Con respecto al comportamiento regional de la inflación subyacente del mes de `r meses[mes_t,1]`, en casi todas las regiones se registra una suba de la tasa de inflación subyacente mensual con respecto al mes anterior de entre 0.1 y 0.7 puntos porcentuales, dependiendo de la región. En las regiones Pampeana y Patagonia el valor registrado es prácticamente igual al del mes anterior Comparando con la medición de inflación sin estacionalidad, todas las regiones registraron valores de inflación subyacente más bajos que el índice general, con diferencias entre 0.04 y 0.31 puntos porcentuales. En términos interanuales, la inflación subyacente en el país se ubica en `r sprintf("%.1f", cuadro1[21,8])` por ciento en `r meses[mes_t,1]` (Cuadro 1).
+**En `r meses[mes_t,1]`, la inflación subyacente, definida como el cambio porcentual en el nivel general del IPCse menos el efecto de los índices de precios de las divisiones de la canasta que incluyen bienes y servicios regulados o con alto componente impositivo, fue de `r cuadro1[21,7]` por ciento después de haber aumentado un `r cuadro1[21,6]` por ciento en `r meses_anterior[mes_t,1]`.** Con respecto al comportamiento regional de la inflación subyacente del mes de `r meses[mes_t,1]`, en casi todas las regiones se registra un descenso de la tasa de inflación subyacente mensual con respecto al mes anterior, salvo en las regiones Noroeste y Noreste. Las regiones GBA y Cuyo vieron los mayores descensos en la inflación subyacente mensual, reduciéndose en 0.6 y 0.5 puntos porcentuales, respectivamente. En términos interanuales, la inflación subyacente en el país se ubica en `r sprintf("%.1f", cuadro1[21,8])` por ciento en `r meses[mes_t,1]` (Cuadro 1).
 
 <br>
 
@@ -295,7 +295,7 @@ cuadro1[21:27,]
     group_rows("Inflación subyacente", 20,26) %>%
     column_spec(column=1:8, extra_css = "vertical- align:middle;") %>%
     kable_styling() %>%
-    add_header_above(c("Año"=1, "2023"=2, "2024"=4, setNames(1,text_mes_yoy))) %>%
+    add_header_above(c("Año"=1, "2024"=5, "2025"=1, setNames(1,text_mes_yoy))) %>%
     #add_header_above(c("Año"=1, "2023"=6, setNames(1,text_mes_yoy))) %>%
     add_header_above(c("IPCse" = 1, "Variación mensual" = 6, "Variación interanual" = 1)) %>%
     add_footnote("Nota: existe una diferencia económicamente no significativa (menos de medio punto porcentual) entre las variaciones interanuales del IPCse y del IPC calculado por INDEC. Debido a esto la última columna del cuadro muestra las variaciones interanuales del IPC oficial.", notation = "symbol")
@@ -368,7 +368,7 @@ cuadro1[21:27,]
   cuadro2 %>%   
     slice(c(2,5:17,19,22:33)) %>%
     kable(caption = "**Cuadro 2. Incidencia de las divisiones en la inflación**",
-          digits=1, align = c('l',rep('c',times=7))) %>%
+          digits=2, align = c('l',rep('c',times=7))) %>%
     row_spec(c(1,15),bold=TRUE) %>% 
     kable_styling() %>%
     group_rows("Incidencia mensual (IPCse)", 1,14) %>%
@@ -383,7 +383,7 @@ cuadro1[21:27,]
 
 <!-- de `r sprintf("%.1f",cuadro3se[5,4])` por ciento para el quintil de mayores ingresos  -->
 
-**En `r meses[mes_t,1]`, la diferencia entre la tasa de inflación mensual que enfrentaron los hogares de menores ingresos y la de mayores ingresos fue de `r sprintf("%.2f", abs(cuadro3se[1,3]-cuadro3se[5,3]))` puntos porcentuales en detrimento de los hogares de mayores ingresos.** Esta diferencia se explica por los menores aumentos en los índice de precios de Alimentos y bebidas no alcohólicas, donde los hogares de mayores ingresos (quintil 5) concentran una menor proporción de su gasto en comparación con la proporción del gasto total que le dedican los hogares de menores ingresos (quintil 1), junto con los mayores aumentos en las divisiones en las que concentran mayor proporción de sus gastos. Durante `r meses[mes_t,1]`, esto se vio reflejado principalmente en las divisiones de Restaurantes y hoteles, Educación y Salud.
+**En `r meses[mes_t,1]`, la diferencia entre la tasa de inflación mensual que enfrentaron los hogares de menores ingresos y la de mayores ingresos fue de `r sprintf("%.2f", abs(cuadro3se[1,3]-cuadro3se[5,3]))` puntos porcentuales en detrimento de los hogares de mayores ingresos.** Esta diferencia se explica por los menores aumentos en los índice de precios de Alimentos y bebidas no alcohólicas y Prendas de vestir y calzado, donde los hogares de mayores ingresos (quintil 5) concentran una menor proporción de su gasto en comparación con la proporción del gasto total que le dedican los hogares de menores ingresos (quintil 1), junto con los mayores aumentos en las divisiones en las que concentran mayor proporción de sus gastos. Durante `r meses[mes_t,1]`, esto se vio reflejado principalmente en las divisiones de Restaurantes y hoteles, Salud y Educación.
 
 ```{r cuadro3, echo=FALSE, message=FALSE}
   cuadro3se %>%   
@@ -392,7 +392,7 @@ cuadro1[21:27,]
     kable_styling() 
 ```
 
-La Figura 3 muestra la diferencia entre la inflación anual experimentada por el 20 por ciento de la población de menores ingresos y el 20 por ciento de mayores ingresos (medido por el ingreso familiar per capita del hogar). Durante el mes de `r meses[mes_t,1]`, el comportamiento de las tasas de inflación interanuales experimentadas por los hogares de mayores y menores ingresos mantuvo el mismo comportamiento que en el último semestre. **Durante `r meses[mes_t,1]`, la brecha se ubicó en 9.2 puntos porcentuales en favor de los hogares de menores ingresos.** Este comportamiento se explica por los valores aún elevados de las tasas de inflación interanuales de las divisiones en las que los hogares de mayores ingresos consumen más, como Transporte, Salud, Restaurantes y hoteles y Equipamiento y mantenimiento del hogar, combinado con un menor aumento en la tasa de inflación interanual de las divisiones en las que hogares de menores ingresos consumen más, como Alimentos y bebidas no alcohólicas y Prendas de vestir y calzado. 
+La Figura 3 muestra la diferencia entre la inflación anual experimentada por el 20 por ciento de la población de menores ingresos y el 20 por ciento de mayores ingresos (medido por el ingreso familiar per capita del hogar). Durante el mes de `r meses[mes_t,1]`, el comportamiento de las tasas de inflación interanuales experimentadas por los hogares de mayores y menores ingresos mantuvo el mismo comportamiento que en el último semestre. **Durante `r meses[mes_t,1]`, la brecha se ubicó en 7.5 puntos porcentuales en favor de los hogares de menores ingresos.** Este comportamiento se explica por los valores aún elevados de las tasas de inflación interanuales de las divisiones en las que los hogares de mayores ingresos consumen más, como Transporte, Restaurantes y hoteles, Salud y Educación, combinado con un menor aumento en la tasa de inflación interanual de las divisiones en las que hogares de menores ingresos consumen más, como Alimentos y bebidas no alcohólicas y Prendas de vestir y calzado. 
  
 [**Figura 3. Diferencia entre la tasa de inflación interanual entre el 20% con menores ingreso y el 20% con mayores ingresos**]{style="color:#777;font-size:13    .0pt;"}
 
@@ -419,7 +419,7 @@ La Figura 3 muestra la diferencia entre la inflación anual experimentada por el
 
 <br>
 
-La Figura 4 muestra las diferencias entre las contribuciones a la tasa de inflación interanual de `r meses[mes_t,1]` del 20 por ciento de los hogares de menores y mayores ingresos. **La división de Alimentos y bebidas no alcohólicas explicó casi completamente la parte que aumenta la brecha en la inflación para los hogares de menores ingresos en comparación con los hogares de mayores ingresos.** En particular, esta división explicó 17 puntos porcentuales de la diferencia.  En la comparación con otros meses, esta división suele explicar más del 50 por ciento de la diferencia. En la otra dirección, las divisiones que más contribuyeron a aumentar la brecha en detrimento de los hogares de mayores ingresos fueron Transporte,  Restaurantes y hoteles y Salud, siendo que contribuyeron para aumentar más la tasa de inflación que enfrentó el grupo de hogares de mayores ingresos en comparación con los hogares de menores ingresos. Estas tres divisiones contribuyeron a reducir la brecha en la inflación enfrentada por los hogares de menores y mayores ingresos en 18.35 puntos porcentuales. 
+La Figura 4 muestra las diferencias entre las contribuciones a la tasa de inflación interanual de `r meses[mes_t,1]` del 20 por ciento de los hogares de menores y mayores ingresos. **La división de Alimentos y bebidas no alcohólicas explicó casi completamente la parte que aumenta la brecha en la inflación para los hogares de menores ingresos en comparación con los hogares de mayores ingresos.** En particular, esta división explicó 11.45 puntos porcentuales de la diferencia.  En la otra dirección, las divisiones que más contribuyeron a aumentar la brecha en detrimento de los hogares de mayores ingresos fueron Transporte,  Salud y Restaurantes y hoteles, siendo que contribuyeron para aumentar más la tasa de inflación que enfrentó el grupo de hogares de mayores ingresos en comparación con los hogares de menores ingresos. Estas tres divisiones contribuyeron a reducir la brecha en la inflación enfrentada por los hogares de menores y mayores ingresos en 13.2 puntos porcentuales. 
 
 <br>
 
@@ -457,7 +457,7 @@ La Figura 4 muestra las diferencias entre las contribuciones a la tasa de inflac
 cuadro1[9:20,]
 ```
 
-El Cuadro 4 muestra el impacto diferencial de la inflación por quintiles de ingreso per cápita familiar para los datos oficiales. **Los hogares de menores ingresos, quintil 1, enfrentaron en `r meses[mes_t,1]` una inflación de `r sprintf("%.2f",cuadro4[1,3])` por ciento comparada con una inflación de `r sprintf("%.2f",cuadro4[5,3])` por ciento para los hogares del 20 por ciento de mayores ingresos** (ver Figura 5). Esta diferencia se debe al aumento de los precios de las divisiones de Transporte, Restaurantes y hoteles y Salud, que impactan en mayor medida en los hogares de mayores ingresos (quintil 5), combinado con menores aumentos de los índices de precios de las divisiones de Alimentos y bebidas no alcohólicas y Prendas de vestir y calzado, que impactan más en los hogares de menores ingresos (quintil 5).
+El Cuadro 4 muestra el impacto diferencial de la inflación por quintiles de ingreso per cápita familiar para los datos oficiales. **Los hogares de menores ingresos, quintil 1, enfrentaron en `r meses[mes_t,1]` una inflación de `r sprintf("%.2f",cuadro4[1,3])` por ciento comparada con una inflación de `r sprintf("%.2f",cuadro4[5,3])` por ciento para los hogares del 20 por ciento de mayores ingresos** (ver Figura 5). Esta diferencia se debe fundalmente al aumento de los precios de las divisiones de Restaurantes y hoteles y Salud, que impactan en mayor medida en los hogares de mayores ingresos (quintil 5), combinado con menores aumentos de los índices de precios de las divisiones de Alimentos y bebidas no alcohólicas y Prendas de vestir y calzado (que, este último, durante este mes, dio una reducción de precios), que impactan más en los hogares de menores ingresos (quintil 5).
 
 <br>
 
@@ -522,7 +522,21 @@ Se debe notar que siguiendo estos criterios estadísticos ni el CPI-U de Estados
 
 El no detectar estacionalidad estable en el nivel general del índice implica que los patrones estacionales de las series más desagregadas se compensan en el agregado. Hay algunos índices de precios de las 12 divisiones de la canasta que a pesar de tener estacionalidad estable tienen un patrón estacional con una amplitud moderada o baja como son las series de alimentos y bebidas no alcohólicas y bebidas alcohólicas y tabaco. Otros índices de precios como educación y prendas de vestir y calzado tienen una estacionalidad más marcada, pero tienen una menor ponderación en la construcción del nivel general. En la región del GBA por ejemplo, el patrón de estacionalidad de prendas de vestir y calzado es un espejo del de recreación y cultura (con ponderadores parecidos en el nivel general), los picos estacionales de la primera serie coinciden con los valles en la segunda y viceversa.
 
-Cada mes de enero, con los datos de los índices hasta diciembre se reevalúa la estacionalidad de cada serie de índices con base en los criterios estadísticos mencionados arriba. Un índice podría cambiar su estado de ajuste estacional de "ajustado estacionalmente" a "no ajustado estacionalmente", o viceversa. A mediados de febrero de cada año, cuando se publican los datos de inflación de enero, el se publicarán nuevos índices ajustados estacionalmente y los nuevos factores de ajuste estacional para cada división. Estos factores de estacionalidad permanecen constantes durante el resto del año. El método X-11 utilizado para el ajuste estacional produce una serie desestacionalizada diferente con cada dato mensual adicional de forma tal que el IPCse debería actualizarse hacia atrás con cada nuevo dato. Para evitar este ajuste mensual en la desestacionalizada los factores estacionales se mantienen constantes durante un año de forma tal de no cambiar hacia atrás la serie sin estacionalidad. Este es el mismo procedimiento que usa el BLS para la construcción del CPI-U desestacionalizado. Cada mes de enero, como se mencionó arriba se actualizan estos factores estacionales y se reconstruye la serie desestacionalizada hasta 5 años hacia atrás. Los factores estacionales de más de 5 años hacia atrás se consideran definitivos.
+Cada mes de enero, con los datos de los índices hasta diciembre se reevalúa la estacionalidad de cada serie de índices con base en los criterios estadísticos mencionados arriba. Un índice podría cambiar su estado de ajuste estacional de "ajustado estacionalmente" a "no ajustado estacionalmente", o viceversa. A mediados de febrero de cada año, cuando se publican los datos de inflación de enero, se publicarán nuevos índices ajustados estacionalmente y los nuevos factores de ajuste estacional para cada división. Estos factores de estacionalidad permanecen constantes durante el resto del año. El método X-11 utilizado para el ajuste estacional produce una serie desestacionalizada diferente con cada dato mensual adicional de forma tal que el IPCse debería actualizarse hacia atrás con cada nuevo dato. Para evitar este ajuste mensual en la desestacionalizada los factores estacionales se mantienen constantes durante un año de forma tal de no cambiar hacia atrás la serie sin estacionalidad. Este es el mismo procedimiento que usa el BLS para la construcción del CPI-U desestacionalizado. Cada mes de enero, como se mencionó arriba se actualizan estos factores estacionales y se reconstruye la serie desestacionalizada hasta 5 años hacia atrás. Los factores estacionales de más de 5 años hacia atrás se consideran definitivos.
+
+La última revisión del ajuste estacional se realizó en enero de 2025. En base al criterio comentado en el párrafo anterior, los factores estacionales para el perído que va desde diciembre de 2016 hasta diciembre de 2019 son definitivos, mientras que los factores estacionales desde enero de 2020 hasta la actualidad fueron estimados con la información más reciente. En esta revisión, los índices de precios que pasan a tener estacionalidad detectable son las siguientes:
+
+- Comunicaciones (regiones GBA, Cuyo y Patagonia)
+
+Mientras que los índices de precios que dejan de tener estacionalidad detectable son los siguietes:
+
+- Prendas de vestir y calzado (región Patagonia)
+- Vivienda, agua, electricidad, gas y otros combustibles (región Patagonia)
+- Equipamiento y mantenimiento del hogar (regiones GBA, NEA y Patagonia)
+- Salud (región Patagonia)
+- Recreación y cultura (regiones GBA, NOA y Patagonia)
+- Bienes y servicios varios (regiones NOA y Patagonia)
+
 
 **¿Cómo se calcula la inflación por quintiles de ingreso?**
 
